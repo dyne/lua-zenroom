@@ -104,6 +104,9 @@ void lua_add_class(lua_State *L, char *name,
 extern luaL_Reg octet_class;
 extern luaL_Reg octet_methods;
 
+extern luaL_Reg hash_class;
+extern luaL_Reg hash_methods;
+
 LUALIB_API int luaopen_cryptolang (lua_State *L){
 
 	// PRNG: initialise the pseudo-random generator
@@ -114,6 +117,8 @@ LUALIB_API int luaopen_cryptolang (lua_State *L){
 	/* xxx("hflen 2048(%u)", sizeof(HFLEN_2048)); */
 	/* xxx("fflen 4096(%u)", sizeof(FFLEN_4096)); */
   lua_add_class(L, "octet", &octet_class, &octet_methods);
+  lua_add_class(L, "hash", &hash_class, &hash_methods);
+
 //  luaL_newlib(L, &octet_class);
 //  lua_pushlstring(L, "octet");
 //  lua_setfield(L, -2, "octet");
