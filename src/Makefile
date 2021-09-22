@@ -1,4 +1,4 @@
-#  lua-zencode (GNU Makefile build system)
+#  lua-cryptolang (GNU Makefile build system)
 #
 #  (c) Copyright 2020-2021 Dyne.org foundation
 #  designed, written and maintained by Denis Roio <jaromil@dyne.org>
@@ -16,23 +16,23 @@
 #  along with this program.  If not, see
 #  <http://www.gnu.org/licenses/>.
 
-SOURCES := zencode.o \
+SOURCES := cryptolang.o \
 	encoding.o base58.c \
 	randombytes.o prng.o \
 	zen_octet.o zen_error.o \
 	compat-5.3.o
 
 all: ${SOURCES}
-	${CC} ${CFLAGS} ${SOURCES} -o zencode.so ${LDFLAGS} ${LDADD}
+	${CC} ${CFLAGS} ${SOURCES} -o cryptolang.so ${LDFLAGS} ${LDADD}
 
 check:
-	lua${LUAVER} -l zencode ../test/compat53.lua
-	lua${LUAVER} -l zencode ../test/octet_conversion.lua
-	lua${LUAVER} -l zencode ../test/octet.lua
+	lua${LUAVER} -l cryptolang ../test/compat53.lua
+	lua${LUAVER} -l cryptolang ../test/octet_conversion.lua
+	lua${LUAVER} -l cryptolang ../test/octet.lua
 
 
 gdb:
-	gdb --args lua${LUAVER} -l zencode ../test/basic.lua
+	gdb --args lua${LUAVER} -l cryptolang ../test/basic.lua
 
 clean:
 	rm -f *.o

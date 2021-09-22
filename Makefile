@@ -1,4 +1,4 @@
-#  lua-zencode (GNU Makefile build system)
+#  lua-cryptolang (GNU Makefile build system)
 #
 #  (c) Copyright 2020-2021 Dyne.org foundation
 #  designed, written and maintained by Denis Roio <jaromil@dyne.org>
@@ -47,16 +47,16 @@ LUA_INCDIR ?= /usr/include/lua5.1
 LUA_CFLAGS ?= -fPIC -I.
 LUA_LDFLAGS ?= -fPIC
 
-all: milagro zencode
+all: milagro cryptolang
 
 debug: cflags += -O0 -ggdb -DDEBUG
-debug: milagro zencode
+debug: milagro cryptolang
 	CC="${gcc}" AR="${ar}" CFLAGS="${cflags} ${LUA_CFLAGS} -I${LUA_INCDIR}" \
 		LDFLAGS="${ldflags} ${LUA_LDFLAGS}" LDADD="${ldadd}" \
 		VERSION="${version}" \
 		make -C src
 
-zencode:
+cryptolang:
 	CC="${gcc}" AR="${ar}" CFLAGS="${cflags} ${LUA_CFLAGS} -I${LUA_INCDIR}" \
 		LDFLAGS="${ldflags} ${LUA_LDFLAGS}" LDADD="${ldadd}" \
 		VERSION="${version}" \
@@ -78,7 +78,7 @@ milagro:
 	fi
 
 check: cflags += -O0 -ggdb -DDEBUG
-check: milagro zencode
+check: milagro cryptolang
 	LUAVER=${luaver} make -C src check
 
 gdb:
@@ -89,5 +89,5 @@ clean:
 	make clean -C ${pwd}/src
 
 install:
-	install src/zencode.so ${INST_LIBDIR}/zencode.so
+	install src/cryptolang.so ${INST_LIBDIR}/cryptolang.so
 

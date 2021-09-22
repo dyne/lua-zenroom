@@ -1,15 +1,15 @@
-package = "zencode"
+package = "cryptolang"
 version = "scm-1"
 source = {
-   url = "https://github.com/dyne/lua-zencode",
+   url = "https://github.com/dyne/lua-cryptolang",
 }
 description = {
-   summary = "Zencode crypto language for Lua",
+   summary = "cryptolang crypto language for Lua",
    detailed = [[
 Portable cryptographic module to execute crypto computations in Lua using the Zencode domain specific language.
 ]],
    license = "MIT",
-   homepage = "https://github.com/dyne/lua-zencode",
+   homepage = "https://github.com/dyne/lua-cryptolang",
 }
 supported_platforms = {
    "unix",

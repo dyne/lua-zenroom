@@ -104,7 +104,7 @@ void lua_add_class(lua_State *L, char *name,
 extern luaL_Reg octet_class;
 extern luaL_Reg octet_methods;
 
-LUALIB_API int luaopen_zencode (lua_State *L){
+LUALIB_API int luaopen_cryptolang (lua_State *L){
 
 	// PRNG: initialise the pseudo-random generator
 	/* xxx("SIZES OF PRIMITIVES"); */
