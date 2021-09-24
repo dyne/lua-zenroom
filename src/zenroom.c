@@ -111,6 +111,7 @@ extern luaL_Reg aes_class;
 extern luaL_Reg aes_methods;
 
 extern luaL_Reg vfastr_class;
+extern luaL_Reg vfastr_methods;
 
 LUALIB_API int luaopen_zenroom (lua_State *L){
 
@@ -121,7 +122,7 @@ LUALIB_API int luaopen_zenroom (lua_State *L){
 	/* xxx("sizeof(big 512_60): %u", sizeof(BIG_512_60)); */
 	/* xxx("hflen 2048(%u)", sizeof(HFLEN_2048)); */
 	/* xxx("fflen 4096(%u)", sizeof(FFLEN_4096)); */
-  lua_add_class(L, "vfastr", &vfastr_class, NULL );
+  lua_add_class(L, "vfastr", &vfastr_class, &vfastr_methods );
   lua_add_class(L, "octet", &octet_class, &octet_methods);
   lua_add_class(L, "hash", &hash_class, &hash_methods);
   lua_add_class(L, "aes", &aes_class, &aes_methods);

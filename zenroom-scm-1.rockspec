@@ -1,7 +1,7 @@
 package = "zenroom"
 version = "scm-1"
 source = {
-   url = "https://github.com/dyne/lua-zenroom",
+   url = "git://github.com/dyne/lua-zenroom.git",
 }
 description = {
    summary = "zenroom crypto language for Lua",

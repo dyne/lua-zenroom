@@ -74,12 +74,13 @@ void notice(lua_State *L, const char *format, ...) {
 }
 
 void func(void *L, const char *format, ...) {
+#if DEBUG > 2
 	va_list arg;
 	snprintf(pfx, MAX_STRING-1, "[D] %s\n",format);
 	va_start(arg, format);
 	zen_write_err_va(pfx, arg);
 	va_end(arg);
-
+#endif
 }
 
 void error(lua_State *L, const char *format, ...) {
