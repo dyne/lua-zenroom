@@ -22,8 +22,9 @@ ARCH=$(shell uname -m)
 system := Linux
 gcc := gcc
 luaver := 5.1
-ldflags := -shared
-cflags := -I ${pwd}/lib/milagro-crypto-c/build/include -I ${pwd}/lib/milagro-crypto-c/include
+ldflags := -fPIC -shared
+# amcl := ${pwd}/lib/milagro-crypto-c
+# cflags := -I.
 ar := $(shell which ar) # cmake requires full path
 ranlib := ranlib
 ld := ld
@@ -42,23 +43,19 @@ ldadd += ${milib}/libamcl_curve_${ecdh_curve}.a
 ldadd += ${milib}/libamcl_paillier.a
 ldadd += ${milib}/libamcl_core.a
 
-# lua flags when not built with luarocks
-LUA_INCDIR ?= /usr/include/lua5.1
-LUA_CFLAGS ?= -fPIC -I.
-LUA_LDFLAGS ?= -fPIC
-
 all: milagro zenroom
 
 debug: cflags += -O0 -ggdb -DDEBUG
 debug: milagro zenroom
-	CC="${gcc}" AR="${ar}" CFLAGS="${cflags} ${LUA_CFLAGS} -I${LUA_INCDIR}" \
-		LDFLAGS="${ldflags} ${LUA_LDFLAGS}" LDADD="${ldadd}" \
+	CC="${gcc}" AR="${ar}" CFLAGS="${cflags}" \
+		LDFLAGS="${ldflags}" LDADD="${ldadd}" \
 		VERSION="${version}" \
 		make -C src
 
 zenroom:
-	CC="${gcc}" AR="${ar}" CFLAGS="${cflags} ${LUA_CFLAGS} -I${LUA_INCDIR}" \
-		LDFLAGS="${ldflags} ${LUA_LDFLAGS}" LDADD="${ldadd}" \
+	cd src && ./codegen_ecdh_factory.sh ${ecdh_curve}
+	CC="${gcc}" AR="${ar}" CFLAGS="${cflags}" \
+		LDFLAGS="${ldflags}" LDADD="${ldadd}" \
 		VERSION="${version}" \
 		make -C src
 

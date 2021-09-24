@@ -23,6 +23,11 @@ SOURCES := zenroom.o \
 	zen_parse.o zen_error.o \
 	compat-5.3.o
 
+# 	zen_ecdh.o zen_ecdh_factory.c \
+
+amcl := ../lib/milagro-crypto-c
+
+all: CFLAGS += -fPIC -I/usr/include/lua5.1 -I${amcl}/build/include -I${amcl}/include
 all: ${SOURCES}
 	${CC} ${CFLAGS} ${SOURCES} -o zenroom.so ${LDFLAGS} ${LDADD}
 
@@ -47,4 +52,4 @@ clean:
 	rm -f *.so
 
 .c.o:
-	${CC} -I. ${CFLAGS} -c $< -o $@ -DVERSION=\"${VERSION}\"
+	${CC} ${CFLAGS} -I. -c $< -o $@ -DVERSION=\"${VERSION}\"
