@@ -113,6 +113,10 @@ extern luaL_Reg aes_methods;
 extern luaL_Reg vfastr_class;
 extern luaL_Reg vfastr_methods;
 
+extern luaL_Reg ecdh_class;
+extern luaL_Reg ecdh_methods;
+extern void ecdh_init();
+
 LUALIB_API int luaopen_zenroom (lua_State *L){
 
 	// PRNG: initialise the pseudo-random generator
@@ -126,6 +130,10 @@ LUALIB_API int luaopen_zenroom (lua_State *L){
   lua_add_class(L, "octet", &octet_class, &octet_methods);
   lua_add_class(L, "hash", &hash_class, &hash_methods);
   lua_add_class(L, "aes", &aes_class, &aes_methods);
+
+  ecdh_init();
+  lua_add_class(L, "ecdh", &ecdh_class, &ecdh_methods);
+
 //  luaL_newlib(L, &octet_class);
 //  lua_pushlstring(L, "octet");
 //  lua_setfield(L, -2, "octet");

@@ -23,8 +23,6 @@ system := Linux
 gcc := gcc
 luaver := 5.1
 ldflags := -fPIC -shared
-# amcl := ${pwd}/lib/milagro-crypto-c
-# cflags := -I.
 ar := $(shell which ar) # cmake requires full path
 ranlib := ranlib
 ld := ld
@@ -36,6 +34,8 @@ rsa_bits := ""
 ecdh_curve := "SECP256K1"
 ecp_curve  := "BLS381"
 milagro_cmake_flags := -DBUILD_SHARED_LIBS=OFF -DBUILD_PYTHON=OFF -DBUILD_DOXYGEN=OFF -DBUILD_DOCS=OFF -DBUILD_BENCHMARKS=OFF -DBUILD_EXAMPLES=OFF -DWORD_SIZE=64 -DBUILD_PAILLIER=ON -DBUILD_X509=OFF -DBUILD_WCC=OFF -DBUILD_MPIN=OFF -DAMCL_CURVE=${ecdh_curve},${ecp_curve} -DAMCL_RSA="" -DCMAKE_SHARED_LIBRARY_LINK_FLAGS="" -DC99=1 
+milagro_cflags := -fPIC
+
 milib := ${pwd}/lib/milagro-crypto-c/build/lib
 ldadd += ${milib}/libamcl_curve_${ecp_curve}.a
 ldadd += ${milib}/libamcl_pairing_${ecp_curve}.a
@@ -43,18 +43,19 @@ ldadd += ${milib}/libamcl_curve_${ecdh_curve}.a
 ldadd += ${milib}/libamcl_paillier.a
 ldadd += ${milib}/libamcl_core.a
 
-all: milagro zenroom
+all: milagro codegen zenroom
 
-debug: cflags += -O0 -ggdb -DDEBUG
-debug: milagro zenroom
-	CC="${gcc}" AR="${ar}" CFLAGS="${cflags}" \
-		LDFLAGS="${ldflags}" LDADD="${ldadd}" \
+codegen:
+	cd src && ./codegen_ecdh_factory.sh ${ecdh_curve}
+
+debug: milagro codegen
+	CC="${gcc}" AR="${ar}" \
+		LDFLAGS="${ldflags}" LDADD="${ldadd}" CFLAGS="-O0 -ggdb -DDEBUG=3" \
 		VERSION="${version}" \
 		make -C src
 
 zenroom:
-	cd src && ./codegen_ecdh_factory.sh ${ecdh_curve}
-	CC="${gcc}" AR="${ar}" CFLAGS="${cflags}" \
+	CC="${gcc}" AR="${ar}" \
 		LDFLAGS="${ldflags}" LDADD="${ldadd}" \
 		VERSION="${version}" \
 		make -C src
@@ -66,7 +67,8 @@ milagro:
 		mkdir -p build && \
 		cd build && \
 		CC=${gcc} LD=${ld} \
-		cmake ../ -DCMAKE_C_FLAGS="${cflags}" -DCMAKE_SYSTEM_NAME="${system}" \
+		cmake ../ -DCMAKE_C_FLAGS="${cflags} ${milagro_cflags}" \
+		-DCMAKE_SYSTEM_NAME="${system}" \
 		-DCMAKE_AR=${ar} -DCMAKE_C_COMPILER=${gcc} ${milagro_cmake_flags}; \
 	fi
 	if ! [ -r ${pwd}/lib/milagro-crypto-c/build/lib/libamcl_core.a ]; then \

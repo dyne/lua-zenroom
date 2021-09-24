@@ -21,9 +21,9 @@ SOURCES := zenroom.o \
 	randombytes.o prng.o \
 	zen_octet.o zen_hash.o zen_aes.o \
 	zen_parse.o zen_error.o \
+	zen_ecdh.o zen_ecdh_factory.o \
 	compat-5.3.o
 
-# 	zen_ecdh.o zen_ecdh_factory.c \
 
 amcl := ../lib/milagro-crypto-c
 
@@ -40,12 +40,13 @@ check:
 	lua${LUAVER} -l zenroom ${NIST}/aes_ctr.lua
 	lua${LUAVER} -l zenroom ${NIST}/aes_gcm.lua
 	lua${LUAVER} -l zenroom ${NIST}/check_rsp.lua
-#	lua${LUAVER} -l zenroom ${NIST}/aes_cbc.lua
-#	lua${LUAVER} -l zenroom ${NIST}/check_rsp.lua ${NIST}/SHA256ShortMsg.rsp SHA256
+	lua${LUAVER} -l zenroom ${NIST}/aes_cbc.lua
+	lua${LUAVER} -l zenroom ../test/ecdh.lua
+
 
 
 gdb:
-	gdb --args lua${LUAVER} -l zenroom ../test/basic.lua
+	gdb --args lua${LUAVER} -l zenroom -i
 
 clean:
 	rm -f *.o
