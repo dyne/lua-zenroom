@@ -22,6 +22,7 @@ SOURCES := zenroom.o \
 	zen_octet.o zen_hash.o zen_aes.o \
 	zen_parse.o zen_error.o \
 	zen_ecdh.o zen_ecdh_factory.o \
+	zen_big.o zen_ecp.o zen_ecp2.o zen_fp12.o \
 	compat-5.3.o
 
 
@@ -42,6 +43,7 @@ check:
 	lua${LUAVER} -l zenroom ${NIST}/check_rsp.lua
 	lua${LUAVER} -l zenroom ${NIST}/aes_cbc.lua
 	lua${LUAVER} -l zenroom ../test/ecdh.lua
+	lua${LUAVER} -l zenroom ../test/ecp_generic.lua
 
 
 

@@ -47,6 +47,7 @@ all: milagro codegen zenroom
 
 codegen:
 	cd src && ./codegen_ecdh_factory.sh ${ecdh_curve}
+	cd src && ./codegen_ecp_factory.sh ${ecp_curve}
 
 debug: milagro codegen
 	CC="${gcc}" AR="${ar}" \

@@ -117,6 +117,15 @@ extern luaL_Reg ecdh_class;
 extern luaL_Reg ecdh_methods;
 extern void ecdh_init();
 
+extern luaL_Reg big_class;
+extern luaL_Reg big_methods;
+extern luaL_Reg ecp_class;
+extern luaL_Reg ecp_methods;
+extern luaL_Reg ecp2_class;
+extern luaL_Reg ecp2_methods;
+extern luaL_Reg fp12_class;
+extern luaL_Reg fp12_methods;
+
 LUALIB_API int luaopen_zenroom (lua_State *L){
 
 	// PRNG: initialise the pseudo-random generator
@@ -133,6 +142,11 @@ LUALIB_API int luaopen_zenroom (lua_State *L){
 
   ecdh_init();
   lua_add_class(L, "ecdh", &ecdh_class, &ecdh_methods);
+
+  lua_add_class(L, "big", &big_class, &big_methods);
+  lua_add_class(L, "ecp", &ecp_class, &ecp_methods);
+  lua_add_class(L, "ecp2", &ecp2_class, &ecp2_methods);
+  lua_add_class(L, "fp12", &fp12_class, &fp12_methods);
 
 //  luaL_newlib(L, &octet_class);
 //  lua_pushlstring(L, "octet");
