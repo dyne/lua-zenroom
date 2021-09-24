@@ -1,8 +1,8 @@
-# Lua cryptolang
+# Lua zenroom
 
-This is the port of cryptolang language ported out of [Zenroom](https://zenroom.org)'s VM to run on Lua 5.1 and all derivates (including Tarantool)
+This is the port of zenroom language ported out of [Zenroom](https://zenroom.org)'s VM to run on Lua 5.1 and all derivates (including Tarantool)
 
-Lua cryptolang is a portable cryptographic module to execute secure cryptographic computations within [distributed computing](https://en.wikipedia.org/wiki/Distributed_computing) environments.
+Lua zenroom is a portable cryptographic module to execute secure cryptographic computations within [distributed computing](https://en.wikipedia.org/wiki/Distributed_computing) environments.
 
 This Lua module works only on 64-bit systems. For 32-bit support please use the Zenroom VM.
 
@@ -13,7 +13,7 @@ This Lua module works only on 64-bit systems. For 32-bit support please use the 
 Build:
 
 ```
-luarocks build cryptolang-scm-1.rockspec
+luarocks build zenroom-scm-1.rockspec
 ```
 
 Test:
@@ -23,19 +23,19 @@ make check
 
 Launch:
 ```
-lua -l cryptolang
+lua -l zenroom
 ```
 
 Use:
 ```
-pk = cryptolang.keygen()
+pk = zenroom.keygen()
 ```
 
 ## WORK IN PROGRESS
 
 # Credits
 
-Lua cryptolang is Copyright (C) 2020-2021 by the Dyne.org foundation
+Lua zenroom is Copyright (C) 2020-2021 by the Dyne.org foundation
 
 Designed, written and maintained by Denis "Jaromil" Roio.
 

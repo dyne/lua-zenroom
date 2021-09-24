@@ -2,8 +2,8 @@ FROM dyne/devuan:chimaera
 
 RUN apt-get update -y -q && apt-get install -y -q luarocks gcc cmake 
 
-COPY . /lua-cryptolang/
+COPY . /lua-zenroom/
 
-WORKDIR /lua-cryptolang
+WORKDIR /lua-zenroom
 
 RUN make check

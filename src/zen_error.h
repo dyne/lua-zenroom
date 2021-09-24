@@ -31,7 +31,7 @@
 #include <maxvalues.h>
 
 int lerror(lua_State *L, const char *fmt, ...);
-// int cryptolang_traceback(lua_State *L);
+// int zenroom_traceback(lua_State *L);
 
 void notice(lua_State *L, const char *format, ...);
 void func(void *L, const char *format, ...);

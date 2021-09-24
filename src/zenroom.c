@@ -77,7 +77,7 @@ void lua_add_class(lua_State *L, char *name,
 	lua_pushstring(L, "__index");
 	lua_pushvalue(L, -2);  /* pushes the metatable */
 	lua_settable(L, -3);  /* metatable.__index = metatable */
-	luaL_setfuncs(L,methods,0);
+	if(methods) luaL_setfuncs(L,methods,0);
 
 	lua_findtable(L, LUA_REGISTRYINDEX, LUA_LOADED_TABLE, 1);
 	if (lua_getfield(L, -1, name) != LUA_TTABLE) {
@@ -107,7 +107,12 @@ extern luaL_Reg octet_methods;
 extern luaL_Reg hash_class;
 extern luaL_Reg hash_methods;
 
-LUALIB_API int luaopen_cryptolang (lua_State *L){
+extern luaL_Reg aes_class;
+extern luaL_Reg aes_methods;
+
+extern luaL_Reg vfastr_class;
+
+LUALIB_API int luaopen_zenroom (lua_State *L){
 
 	// PRNG: initialise the pseudo-random generator
 	/* xxx("SIZES OF PRIMITIVES"); */
@@ -116,9 +121,10 @@ LUALIB_API int luaopen_cryptolang (lua_State *L){
 	/* xxx("sizeof(big 512_60): %u", sizeof(BIG_512_60)); */
 	/* xxx("hflen 2048(%u)", sizeof(HFLEN_2048)); */
 	/* xxx("fflen 4096(%u)", sizeof(FFLEN_4096)); */
+  lua_add_class(L, "vfastr", &vfastr_class, NULL );
   lua_add_class(L, "octet", &octet_class, &octet_methods);
   lua_add_class(L, "hash", &hash_class, &hash_methods);
-
+  lua_add_class(L, "aes", &aes_class, &aes_methods);
 //  luaL_newlib(L, &octet_class);
 //  lua_pushlstring(L, "octet");
 //  lua_setfield(L, -2, "octet");

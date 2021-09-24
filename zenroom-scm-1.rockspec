@@ -1,15 +1,15 @@
-package = "cryptolang"
+package = "zenroom"
 version = "scm-1"
 source = {
-   url = "https://github.com/dyne/lua-cryptolang",
+   url = "https://github.com/dyne/lua-zenroom",
 }
 description = {
-   summary = "cryptolang crypto language for Lua",
+   summary = "zenroom crypto language for Lua",
    detailed = [[
 Portable cryptographic module to execute crypto computations in Lua using the Zencode domain specific language.
 ]],
    license = "MIT",
-   homepage = "https://github.com/dyne/lua-cryptolang",
+   homepage = "https://github.com/dyne/lua-zenroom",
 }
 supported_platforms = {
    "unix",
@@ -33,5 +33,10 @@ build = {
       INST_LIBDIR="$(LIBDIR)",
       INST_LUADIR="$(LUADIR)",
       INST_CONFDIR="$(CONFDIR)",
+   },
+   install = {
+      lua = {
+	 ["zenroom.init"] = "src/lua/init.lua"
+      }
    }
 }

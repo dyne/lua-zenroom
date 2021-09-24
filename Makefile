@@ -1,4 +1,4 @@
-#  lua-cryptolang (GNU Makefile build system)
+#  lua-zenroom (GNU Makefile build system)
 #
 #  (c) Copyright 2020-2021 Dyne.org foundation
 #  designed, written and maintained by Denis Roio <jaromil@dyne.org>
@@ -47,16 +47,16 @@ LUA_INCDIR ?= /usr/include/lua5.1
 LUA_CFLAGS ?= -fPIC -I.
 LUA_LDFLAGS ?= -fPIC
 
-all: milagro cryptolang
+all: milagro zenroom
 
 debug: cflags += -O0 -ggdb -DDEBUG
-debug: milagro cryptolang
+debug: milagro zenroom
 	CC="${gcc}" AR="${ar}" CFLAGS="${cflags} ${LUA_CFLAGS} -I${LUA_INCDIR}" \
 		LDFLAGS="${ldflags} ${LUA_LDFLAGS}" LDADD="${ldadd}" \
 		VERSION="${version}" \
 		make -C src
 
-cryptolang:
+zenroom:
 	CC="${gcc}" AR="${ar}" CFLAGS="${cflags} ${LUA_CFLAGS} -I${LUA_INCDIR}" \
 		LDFLAGS="${ldflags} ${LUA_LDFLAGS}" LDADD="${ldadd}" \
 		VERSION="${version}" \
@@ -78,7 +78,7 @@ milagro:
 	fi
 
 check: cflags += -O0 -ggdb -DDEBUG
-check: milagro cryptolang
+check: milagro zenroom
 	LUAVER=${luaver} make -C src check
 
 gdb:
@@ -89,5 +89,8 @@ clean:
 	make clean -C ${pwd}/src
 
 install:
-	install src/cryptolang.so ${INST_LIBDIR}/cryptolang.so
+	install src/zenroom.so ${INST_LIBDIR}/zenroom.so
+
+#	install init.lua -D ${INST_LIBDIR}/zenroom/init.lua
+
 

@@ -1,0 +1,4 @@
+LIBRARY lua-zenroom.dll
+VERSION 0.1.0
+EXPORTS
+luaopen_zenroom

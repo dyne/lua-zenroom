@@ -1,4 +1,4 @@
-#  lua-cryptolang (GNU Makefile build system)
+#  lua-zenroom (GNU Makefile build system)
 #
 #  (c) Copyright 2020-2021 Dyne.org foundation
 #  designed, written and maintained by Denis Roio <jaromil@dyne.org>
@@ -16,24 +16,27 @@
 #  along with this program.  If not, see
 #  <http://www.gnu.org/licenses/>.
 
-SOURCES := cryptolang.o \
+SOURCES := zenroom.o \
 	encoding.o base58.c \
 	randombytes.o prng.o \
-	zen_octet.o zen_hash.o zen_error.o \
+	zen_octet.o zen_hash.o zen_aes.o \
+	zen_parse.o zen_error.o \
 	compat-5.3.o
 
 all: ${SOURCES}
-	${CC} ${CFLAGS} ${SOURCES} -o cryptolang.so ${LDFLAGS} ${LDADD}
+	${CC} ${CFLAGS} ${SOURCES} -o zenroom.so ${LDFLAGS} ${LDADD}
 
+check: NIST := ../test/nist
 check:
-	lua${LUAVER} -l cryptolang ../test/compat53.lua
-	lua${LUAVER} -l cryptolang ../test/octet_conversion.lua
-	lua${LUAVER} -l cryptolang ../test/octet.lua
-	lua${LUAVER} -l cryptolang ../test/hash.lua
+	lua${LUAVER} -l zenroom ../test/compat53.lua
+	lua${LUAVER} -l zenroom ../test/octet_conversion.lua
+	lua${LUAVER} -l zenroom ../test/octet.lua
+	lua${LUAVER} -l zenroom ../test/hash.lua
+	lua${LUAVER} -l zenroom ${NIST}/check_rsp.lua ${NIST}/SHA256ShortMsg.rsp SHA256
 
 
 gdb:
-	gdb --args lua${LUAVER} -l cryptolang ../test/basic.lua
+	gdb --args lua${LUAVER} -l zenroom ../test/basic.lua
 
 clean:
 	rm -f *.o
