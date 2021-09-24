@@ -32,7 +32,11 @@ check:
 	lua${LUAVER} -l zenroom ../test/octet_conversion.lua
 	lua${LUAVER} -l zenroom ../test/octet.lua
 	lua${LUAVER} -l zenroom ../test/hash.lua
-	lua${LUAVER} -l zenroom ${NIST}/check_rsp.lua ${NIST}/SHA256ShortMsg.rsp SHA256
+	lua${LUAVER} -l zenroom ${NIST}/aes_ctr.lua
+	lua${LUAVER} -l zenroom ${NIST}/aes_gcm.lua
+	lua${LUAVER} -l zenroom ${NIST}/check_rsp.lua
+#	lua${LUAVER} -l zenroom ${NIST}/aes_cbc.lua
+#	lua${LUAVER} -l zenroom ${NIST}/check_rsp.lua ${NIST}/SHA256ShortMsg.rsp SHA256
 
 
 gdb:
