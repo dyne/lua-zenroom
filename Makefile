@@ -88,9 +88,11 @@ clean:
 	rm -rf ${pwd}/lib/milagro-crypto-c/build
 	make clean -C ${pwd}/src
 
+install: PREFIX ?= /usr/local
+install: DEST_LIBDIR ?= ${PREFIX}/lib/lua/5.1
+install: DEST_SHAREDIR ?= ${PREFIX}/share/lua/5.1
 install:
-	install src/zenroom.so ${INST_LIBDIR}/zenroom.so
-
-#	install init.lua -D ${INST_LIBDIR}/zenroom/init.lua
-
+	install src/libzenroom.so ${DEST_LIBDIR}/libzenroom.so
+	install src/lua/init.lua -D ${DEST_SHAREDIR}/zenroom/init.lua
+	cp -v src/lua/zenroom_*.lua ${DEST_SHAREDIR}/zenroom/
 

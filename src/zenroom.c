@@ -126,34 +126,24 @@ extern luaL_Reg ecp2_methods;
 extern luaL_Reg fp12_class;
 extern luaL_Reg fp12_methods;
 
-LUALIB_API int luaopen_zenroom (lua_State *L){
+extern void prng_init();
 
-	// PRNG: initialise the pseudo-random generator
-	/* xxx("SIZES OF PRIMITIVES"); */
-	/* xxx("modbytes 1024_58: %u", MODBYTES_1024_58); */
-	/* xxx("sizeof(big 1024_58): %u", sizeof(BIG_1024_58)); */
-	/* xxx("sizeof(big 512_60): %u", sizeof(BIG_512_60)); */
-	/* xxx("hflen 2048(%u)", sizeof(HFLEN_2048)); */
-	/* xxx("fflen 4096(%u)", sizeof(FFLEN_4096)); */
+LUALIB_API int luaopen_libzenroom (lua_State *L){
+  // PRNG: initialise the pseudo-random generator
+  prng_init();
+  // register classes
   lua_add_class(L, "vfastr", &vfastr_class, &vfastr_methods );
   lua_add_class(L, "octet", &octet_class, &octet_methods);
   lua_add_class(L, "hash", &hash_class, &hash_methods);
   lua_add_class(L, "aes", &aes_class, &aes_methods);
-
-  ecdh_init();
+  ecdh_init();  // ecdh requires init for function pointers
   lua_add_class(L, "ecdh", &ecdh_class, &ecdh_methods);
-
   lua_add_class(L, "big", &big_class, &big_methods);
   lua_add_class(L, "ecp", &ecp_class, &ecp_methods);
   lua_add_class(L, "ecp2", &ecp2_class, &ecp2_methods);
   lua_add_class(L, "fp12", &fp12_class, &fp12_methods);
-
-//  luaL_newlib(L, &octet_class);
-//  lua_pushlstring(L, "octet");
-//  lua_setfield(L, -2, "octet");
-//	luaL_register(L, "octet", &octet_class);
-	lua_pushcfunction(L, traceback);
-//	lua_settable (L, -3);
-	return 1;
+  
+  lua_pushcfunction(L, traceback);
+  return 1;
 }
 

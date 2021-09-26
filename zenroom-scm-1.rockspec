@@ -8,11 +8,11 @@ description = {
    detailed = [[
 Portable cryptographic module to execute crypto computations in Lua using the Zencode domain specific language.
 ]],
-   license = "MIT",
+   license = "AGPLv3",
    homepage = "https://github.com/dyne/lua-zenroom",
 }
 supported_platforms = {
-   "unix",
+   "unix", "windows", "osx"
 }
 dependencies = {
    "lua ~> 5.1",

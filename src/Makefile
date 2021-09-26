@@ -30,7 +30,7 @@ amcl := ../lib/milagro-crypto-c
 
 all: CFLAGS += -fPIC -I/usr/include/lua5.1 -I${amcl}/build/include -I${amcl}/include
 all: ${SOURCES}
-	${CC} ${CFLAGS} ${SOURCES} -o zenroom.so ${LDFLAGS} ${LDADD}
+	${CC} ${CFLAGS} ${SOURCES} -o libzenroom.so ${LDFLAGS} ${LDADD}
 
 check: NIST := ../test/nist
 check:
