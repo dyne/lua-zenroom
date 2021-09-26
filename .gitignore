@@ -1,0 +1,5 @@
+*~
+*.o
+*.so
+*_factory.c
+*_factory.h
