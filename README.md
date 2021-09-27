@@ -1,56 +1,145 @@
-# Lua zenroom
+<p align="center">
+  <a href="https://zenroom.org">
+    <img alt="Zenroom" src="./docs/zenroom-logotype.png" width="640" />
+  </a>
+</p>
 
-This is the port of zenroom language ported out of [Zenroom](https://zenroom.org)'s VM to run on Lua 5.1 and all derivates (including Tarantool)
+<h1 align="center">
+  Lua Zenroom</br>
+  <sub>Fast and reliable crypto primitives for Lua5.1 and derivates</sub>
+</h1>
 
-Lua zenroom is a portable cryptographic module to execute secure cryptographic computations within [distributed computing](https://en.wikipedia.org/wiki/Distributed_computing) environments.
+<p align="center">
+  <a href="https://dyne.org">
+    <img src="https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%9D%A4%20by-Dyne.org-blue.svg" alt="Dyne.org">
+  </a>
+</p>
+
+<br><br>
+
+[💾 Install]("#-install")
+•
+[🎮 Quick start]("#-quick-start")
+•
+[🐝 API]("#-api")
+• 
+[📋 Testing]("#-testing")
+• 
+[😍 Acknowledgements]("#-acknowledgements")
+•
+[🌐 Links]("#-links")
+•
+[👤 Contributing]("#-contributing")
+•
+[💼 Disclaimer]("#-disclaimer")
+
+This is the port of zenroom language ported out of [Zenroom](https://zenroom.org)'s VM to run on Lua 5.1 and all derivates (including Luajit, Nginx, Openresty and Tarantool)
+
+Lua Zenroom is a portable cryptographic module aiming to execute secure cryptographic computations within [distributed computing](https://en.wikipedia.org/wiki/Distributed_computing) environments that can be easily scripted by Lua.
 
 This Lua module works only on 64-bit systems. For 32-bit support please use the Zenroom VM.
 
-[![software by Dyne.org](https://files.dyne.org/software_by_dyne.png)](http://www.dyne.org)
+## 💾 Install
 
-# Usage
+Simply run the default targets of `Makefile`:
+```
+make && make install
+```
+It will be installed in `/usr/local/lib/lua/5.1/libzenroom.so` and `/usr/local/share/lua/5.1/zenroom/`.
 
-Build:
+---
+## 🎮 Quick start
+
+To see Lua-Zenroom in action you can fire up the Lua interpreter loading `zenroom`
 
 ```
-luarocks build zenroom-scm-1.rockspec
+luajit -l zenroom
 ```
 
-Test:
+As a working example you can now generate an ECDH keypair
+
+```
+keypair = ECDH.keygen()
+print(keypair.private)
+print(keypair.public)
+```
+
+If you prefer to print them out in `base58` or `hex` encoding:
+
+```
+print(keypair.private:base58())
+print(keypair.public:hex())
+```
+
+---
+## 🐝 API
+
+Look at the [Zenroom internal API in Lua](https://dev.zenroom.org/#/pages/ldoc/o/README) to see the current API, more documentation will come soon.
+
+You are welcome to join the [Zenroom telegram channel](https://t.me/zenroom) and ask for help.
+
+---
+## 📋 Testing
+
+Run the test with
+
 ```
 make check
 ```
 
-Launch:
-```
-lua -l zenroom
-```
+The above includes NIST tests on hashing algorithms SHA256 and SHA512.
 
-Use:
+Random quality tests (FIPS140) need `rng-tools` to be installed, then run:
+
 ```
-pk = zenroom.keygen()
+make check-random
 ```
 
-## WORK IN PROGRESS
+---
+## 🐛 Troubleshooting & debugging
 
-# Credits
+There are some known issues under development:
+- SHA3 functions are not yet passing NIST tests
 
-Lua zenroom is Copyright (C) 2020-2021 by the Dyne.org foundation
+If you find any problem or suspicious behaviours please [open an issue](../../issues)
 
-Designed, written and maintained by Denis "Jaromil" Roio.
+---
+## 😍 Acknowledgements
 
-More contact information is on [Zenroom.org](https://zenroom.org)
+Copyright © 2020-2021 by [Dyne.org](https://www.dyne.org) foundation, Amsterdam.
 
-This software Includes the cryptographic library Milagro released
-under the Apache License, Version 2.0
-- Copyright (C) 2016 MIRACL UK Ltd
-- Copyright (C) 2019 The Apache Software Foundation
+**Lua Zenroom is licensed as AGPLv3; we are open to grant license exceptions for specific needs.**
 
-## Licensing
+Designed, written and maintained by Denis "[Jaromil](https://jaromil.dyne.org)" Roio
 
-Copyright (C) 2020-2021 Dyne.org foundation
+with help by Puria Nafisi Azizi and Andrea D'Intino
 
-Designed and written by Denis Roio with the help of Puria Nafisi Azizi and Andrea D'Intino.
+Enterprise level support contracts are available upon request, as well customisations and license exceptions: you are welcome to get in touch with us at https://forkbomb.eu![zenroom-logotype](https://user-images.githubusercontent.com/148059/134892228-8ebcdea2-d932-40ae-8041-7e303f24238c.png)
+
+
+---
+## 🌐 Links
+
+- [Zenroom](https://zenroom.org): the main project this Lua module stems from
+- [Zenroom on Github](https://github.com/dyne/zenroom): the main code repository for Zenroom
+- [DECODE](https://decodeproject.eu): the European resewarch project that gave birth to Zenroom
+- [Zencode documentation](https://dev.zenroom.org): the Zencode DSL uses Zenroom primitives
+- [Dyne.org](https://dyne.org): the foundation behind all this, established in 1999
+
+---
+## 👥 Contributing
+
+Please first take a look at the [Dyne.org - Contributor License Agreement](CONTRIBUTING.md) then
+
+1.  🔀 [FORK IT](../../fork)
+2.  Create your feature branch `git checkout -b feature/branch`
+3.  Commit your changes `git commit -am 'Add some fooBar'`
+4.  Push to the branch `git push origin feature/branch`
+5.  Create a new Pull Request
+6.  🙏 Thank you
+
+---
+## 💼 Disclaimer
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
@@ -66,8 +155,7 @@ You should have received a copy of the GNU Affero General Public
 License along with this program.  If not, see
 <https://www.gnu.org/licenses/>.
 
-## Support
-
-Enterprise level support contracts are available upon request, as
-well customisations and license exceptions: you are welcome to get
-in touch with us at https://zenroom.org
+This software Includes the cryptographic library Milagro released
+under the Apache License, Version 2.0
+- Copyright (C) 2016 MIRACL UK Ltd
+- Copyright (C) 2019 The Apache Software Foundation
