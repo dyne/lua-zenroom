@@ -30,35 +30,29 @@
 
 #include <amcl.h>
 
+#include <zen_error.h>
+#include <encoding.h>
 #include <randombytes.h>
 
 // exported PRNG
 // easier name (csprng comes from amcl.h in milagro)
 static csprng rng;
 
-csprng *PRNG() { return(&rng); }
-
-static uint8_t random_seed[256];
-
-void prng_init() {
-	randombytes(random_seed, 252); // last 4 bytes from time
-	uint32_t ttmp = (uint32_t) time(NULL);
-	random_seed[252] = (ttmp >> 24) & 0xff;
-	random_seed[253] = (ttmp >> 16) & 0xff;
-	random_seed[254] = (ttmp >>  8) & 0xff;
-	random_seed[255] =  ttmp & 0xff;
-	char tseed[256]; // RAND_seed is destructive, preserve seed here
-	memcpy(tseed,random_seed,256);
-	RAND_seed(&rng, 256, tseed);
+csprng *PRNG(lua_State *L) {
+  if(!initialized) {
+    error(L,"Random generator not initialized, use: RNG.seed()");
+    return NULL;
+  }
+  return(&rng);
 }
 
-int rng_uint8(lua_State *L) {
+int rng_int8(lua_State *L) {
 	uint8_t res = RAND_byte(&rng);
 	lua_pushinteger(L, (lua_Integer)res);
 	return(1);
 }
 
-int rng_uint16(lua_State *L) {
+int rng_int16(lua_State *L) {
 	uint16_t res =
 		RAND_byte(&rng)
 		| (uint32_t) RAND_byte(&rng) << 8;
@@ -89,3 +83,48 @@ int rng_int64(lua_State *L) {
 	lua_pushinteger(L, (lua_Integer)res);
 	return(1);
 }
+
+int rng_seed(lua_State *L) {
+  const char *s = lua_tostring(L, 1);
+  if(s) {
+    act(L,"Init RNG from input"); // luaL_argcheck(L, s != NULL, 1, "string expected");
+    const int len = strlen(s);
+    char *tmp = malloc(len/2);
+    hex2buf(tmp, s);
+    RAND_seed(&rng, len/2, tmp);
+  } else {
+    act(L,"Init RNG from system random");
+    uint8_t random_seed[256];
+    randombytes(random_seed, 252); // last 4 bytes from time
+    uint32_t ttmp = (uint32_t) time(NULL);
+    random_seed[252] = (ttmp >> 24) & 0xff;
+    random_seed[253] = (ttmp >> 16) & 0xff;
+    random_seed[254] = (ttmp >>  8) & 0xff;
+    random_seed[255] =  ttmp & 0xff;
+    RAND_seed(&rng, 256, random_seed);
+  }
+  initialized = 1;
+  return(0);
+}
+
+const struct luaL_Reg rng_class [] = {
+  {"seed",  rng_seed },
+  {"int8",  rng_int8  },
+  {"int16", rng_int16 },
+  {"int32", rng_int32 },
+  {"int64", rng_int64 },
+
+  // TODO: compat with zenroom from lua
+  /* {"random_int8",  rng_uint8  }, */
+  /* {"random_int16", rng_uint16 }, */
+  /* {"random_int32", rng_int32 }, */
+  /* {"random8",  rng_uint8  }, */
+  /* {"random16", rng_uint16 }, */
+  /* {"random32", rng_int32 }, */
+  /* {"random",  rng_uint16  }, */
+  /* {"runtime_random256", rng_rr256 }, */
+  {NULL, NULL}
+};
+const struct luaL_Reg rng_methods[] = {
+  {NULL, NULL}
+};

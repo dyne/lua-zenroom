@@ -22,6 +22,9 @@
 
 require'libzenroom'
 
+RNG = require'rng'
+RNG.seed() -- init with system random
+
 BIG = require'big'
 ECDH = require'ecdh'
 AES = require'aes'

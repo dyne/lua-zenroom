@@ -101,6 +101,9 @@ void lua_add_class(lua_State *L, char *name,
 }
 
 
+extern luaL_Reg rng_class;
+extern luaL_Reg rng_methods;
+
 extern luaL_Reg octet_class;
 extern luaL_Reg octet_methods;
 
@@ -126,12 +129,9 @@ extern luaL_Reg ecp2_methods;
 extern luaL_Reg fp12_class;
 extern luaL_Reg fp12_methods;
 
-extern void prng_init();
-
 LUALIB_API int luaopen_libzenroom (lua_State *L){
-  // PRNG: initialise the pseudo-random generator
-  prng_init();
   // register classes
+  lua_add_class(L, "rng", &rng_class, &rng_methods );
   lua_add_class(L, "vfastr", &vfastr_class, &vfastr_methods );
   lua_add_class(L, "octet", &octet_class, &octet_methods);
   lua_add_class(L, "hash", &hash_class, &hash_methods);

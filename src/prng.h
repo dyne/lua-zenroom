@@ -23,13 +23,6 @@
 #ifndef __PRNG_H__
 #define __PRNG_H__
 
-extern csprng rng;
 csprng *PRNG();
-
-void prng_init();
-int rng_uint8(lua_State *L);
-int rng_uint16(lua_State *L);
-int rng_int32(lua_State *L);
-int rng_int64(lua_State *L);
 
 #endif

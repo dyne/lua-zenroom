@@ -112,7 +112,7 @@ static int ecdh_keygen(lua_State *L) {
 	lua_setfield(L, -2, "public");
 	octet *sk = o_new(L,ECDH.fieldsize); SAFE(sk);
 	lua_setfield(L, -2, "private");
-	(*ECDH.ECP__KEY_PAIR_GENERATE)(PRNG(),sk,pk);
+	(*ECDH.ECP__KEY_PAIR_GENERATE)(PRNG(L),sk,pk);
 	return 1;
 }
 
@@ -262,7 +262,7 @@ static int ecdh_dsa_sign(lua_State *L) {
 		lua_setfield(L, -2, "r");
 		octet *s = o_new(L,max_size); SAFE(s);
 		lua_setfield(L, -2, "s");
-		(*ECDH.ECP__SP_DSA)( max_size, PRNG(), NULL, sk, m, r, s);
+		(*ECDH.ECP__SP_DSA)( max_size, PRNG(L), NULL, sk, m, r, s);
 	} else {
 		octet *k = o_arg(L,3); SAFE(k);
 		// return a table
@@ -299,7 +299,7 @@ static int ecdh_dsa_sign_hashed(lua_State *L) {
 		lua_setfield(L, -2, "r");
 		octet *s = o_new(L,(int)n); SAFE(s);
 		lua_setfield(L, -2, "s");
-		(*ECDH.ECP__SP_DSA_NOHASH)((int)n, PRNG(), NULL, sk, m, r, s);
+		(*ECDH.ECP__SP_DSA_NOHASH)((int)n, PRNG(L), NULL, sk, m, r, s);
 	} else {
 		octet *k = o_arg(L,4); SAFE(k);
 		// return a table

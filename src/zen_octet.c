@@ -17,7 +17,7 @@
  * If not, see http://www.gnu.org/licenses/agpl.txt
  * 
  * Last modified by Denis Roio
- * on Wednesday, 22nd September 2021
+ * on Monday, 27th September 2021
  */
 
 /// <h1>Base data type for cryptographic opearations</h1>
@@ -931,7 +931,7 @@ static int max(lua_State *L) {
 static int new_random(lua_State *L) {
 	lua_Number n = lua_tonumber(L, 1); SAFE(n);
 	octet *o = o_new(L,(int)n); SAFE(o);
-	OCT_rand(o,PRNG(),(int)n);
+	OCT_rand(o,PRNG(L),(int)n);
 	return 1;
 }
 

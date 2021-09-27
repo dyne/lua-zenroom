@@ -271,7 +271,7 @@ static int newbig(lua_State *L) {
 		big *res = big_new(L); big_init(res); SAFE(res);
 		// random with modulus
 		big *modulus = (big*)ud; SAFE(modulus);
-		BIG_randomnum(res->val,modulus->val,PRNG());
+		BIG_randomnum(res->val,modulus->val,PRNG(L));
 		return 1;
 	}
 
@@ -526,7 +526,7 @@ static int big_modsub(lua_State *L) {
 static int big_modrand(lua_State *L) {
 	big *modulus = big_arg(L,1); SAFE(modulus);	
 	big *res = big_new(L); big_init(res); SAFE(res);
-	BIG_randomnum(res->val,modulus->val,PRNG());
+	BIG_randomnum(res->val,modulus->val,PRNG(L));
 	return(1);
 }
 
@@ -539,7 +539,7 @@ static int big_modrand(lua_State *L) {
 
 static int big_random(lua_State *L) {
 	big *res = big_new(L); big_init(res); SAFE(res);
-	BIG_randomnum(res->val,(chunk*)CURVE_Order,PRNG());
+	BIG_randomnum(res->val,(chunk*)CURVE_Order,PRNG(L));
 	return(1);
 }
 
