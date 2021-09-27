@@ -34,6 +34,8 @@
 #include <encoding.h>
 #include <randombytes.h>
 
+extern void push_buffer_to_octet(lua_State *L, char *p, size_t len);
+
 // exported PRNG
 // easier name (csprng comes from amcl.h in milagro)
 static csprng rng;
@@ -87,15 +89,15 @@ int rng_int64(lua_State *L) {
 
 int rng_seed(lua_State *L) {
   const char *s = lua_tostring(L, 1);
+  uint8_t random_seed[256];
+  int seedlen;
   if(s) {
-    act(L,"Init RNG from input"); // luaL_argcheck(L, s != NULL, 1, "string expected");
-    const int len = strlen(s);
-    char *tmp = malloc(len/2);
-    hex2buf(tmp, s);
-    RAND_seed(&rng, len/2, tmp);
+    act(L,"Init RNG from input hex string (%u chars)", strlen(s)); // luaL_argcheck(L, s != NULL, 1, "string expected");
+    seedlen = hex2buf(random_seed, s);
+    func(L,"HEX string converted to %u bytes",seedlen);
+    RAND_seed(&rng, seedlen, random_seed);
   } else {
     act(L,"Init RNG from system random");
-    uint8_t random_seed[256];
     randombytes(random_seed, 252); // last 4 bytes from time
     uint32_t ttmp = (uint32_t) time(NULL);
     random_seed[252] = (ttmp >> 24) & 0xff;
@@ -105,6 +107,9 @@ int rng_seed(lua_State *L) {
     RAND_seed(&rng, 256, random_seed);
   }
   initialized = 1;
+	// expose the random seed for optional determinism
+	push_buffer_to_octet(L, random_seed, seedlen);
+	lua_setglobal(L, "RNGSEED");
   return(0);
 }
 

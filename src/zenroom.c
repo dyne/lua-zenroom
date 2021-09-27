@@ -17,7 +17,7 @@
  * If not, see http://www.gnu.org/licenses/agpl.txt
  * 
  * Last modified by Denis Roio
- * on Wednesday, 22nd September 2021
+ * on Monday, 27th September 2021
  */
 
 #include <string.h>
@@ -28,7 +28,6 @@
 #include <compat-5.3.h>
 
 #include <amcl.h>
-#include <paillier.h>
 
 #include <zen_error.h>
 

@@ -4,10 +4,7 @@
   </a>
 </p>
 
-<h1 align="center">
-  Lua Zenroom</br>
-  <sub>Fast and reliable crypto primitives for Lua5.1 and derivates</sub>
-</h1>
+# Crypto primitives for Lua5.1
 
 <p align="center">
   <a href="https://dyne.org">
@@ -107,10 +104,13 @@ make check-random
 ---
 ## 🐛 Troubleshooting & debugging
 
-There are some known issues under development:
+There are some known issues under analysis:
 - SHA3 functions are not yet passing NIST tests
+- RNG determinism works but is not yet compatible with Zenroom VM
 
 If you find any problem or suspicious behaviours please [open an issue](../../issues)
+
+If you intend to use lua-zenroom in production please consider getting in touch with us.
 
 ---
 ## 😍 Acknowledgements
@@ -123,8 +123,7 @@ Designed, written and maintained by Denis "[Jaromil](https://jaromil.dyne.org)" 
 
 with help by Puria Nafisi Azizi and Andrea D'Intino
 
-Enterprise level support contracts are available upon request, as well customisations and license exceptions: you are welcome to get in touch with us at https://forkbomb.eu![zenroom-logotype](https://user-images.githubusercontent.com/148059/134892228-8ebcdea2-d932-40ae-8041-7e303f24238c.png)
-
+Enterprise level support contracts are available upon request, as well customisations and license exceptions: you are welcome to [get in touch with us](https://forkbomb.eu).
 
 ---
 ## 🌐 Links
