@@ -17,21 +17,21 @@
 
 <br><br>
 
-[💾 Install]("#-install")
+[💾 Install](#-install)
 •
-[🎮 Quick start]("#-quick-start")
+[🎮 Quick start](#-quick-start)
 •
-[🐝 API]("#-api")
+[🐝 API](#-api)
 • 
-[📋 Testing]("#-testing")
+[📋 Testing](#-testing)
 • 
-[😍 Acknowledgements]("#-acknowledgements")
+[😍 Acknowledgements](#-acknowledgements)
 •
-[🌐 Links]("#-links")
+[🌐 Links](#-links)
 •
-[👤 Contributing]("#-contributing")
+[👤 Contributing](#-contributing)
 •
-[💼 Disclaimer]("#-disclaimer")
+[💼 Disclaimer](#-disclaimer)
 
 This is the port of zenroom language ported out of [Zenroom](https://zenroom.org)'s VM to run on Lua 5.1 and all derivates (including Luajit, Nginx, Openresty and Tarantool)
 
@@ -41,11 +41,18 @@ This Lua module works only on 64-bit systems. For 32-bit support please use the 
 
 ## 💾 Install
 
-Simply run the default targets of `Makefile`:
+To build from source the following dependencies are needed:
+```
+gcc make cmake zsh
+```
+
+Then simply run the default targets of `Makefile`:
 ```
 make && make install
 ```
-It will be installed in `/usr/local/lib/lua/5.1/libzenroom.so` and `/usr/local/share/lua/5.1/zenroom/`.
+Lua Zenroom will be installed in `/usr/local/lib/lua/5.1/libzenroom.so` and `/usr/local/share/lua/5.1/zenroom/`.
+
+Luarocks spec file and upload is work in progress.
 
 ---
 ## 🎮 Quick start
@@ -70,6 +77,8 @@ If you prefer to print them out in `base58` or `hex` encoding:
 print(keypair.private:base58())
 print(keypair.public:hex())
 ```
+
+A [tutorial about crypto modeling with Zenroom in Lua](https://dev.zenroom.org/#/pages/lua) is also available.
 
 ---
 ## 🐝 API
