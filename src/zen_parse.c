@@ -23,8 +23,10 @@
 
 #include <ctype.h>
 #include <strings.h>
+#include <unistd.h>
 
 #include <zen_error.h>
+#include <zen_octet.h>
 
 #include <lualib.h>
 #include <lauxlib.h>
@@ -119,11 +121,18 @@ static int lua_trim_quotes(lua_State* L) {
 	return 1;
 }
 
+static int lua_raw_print(lua_State* L) {
+	octet *o = o_arg(L,1);
+	write(1, o->val, o->len);
+	return 0;
+}
+
 const struct luaL_Reg vfastr_class[] = {
   {"parse_prefix", lua_parse_prefix},
   {"strcasecmp", lua_strcasecmp},
   {"trim", lua_trim_spaces},
   {"trimq", lua_trim_quotes},
+  {"raw_print", lua_raw_print},
   {NULL, NULL}
 };
 

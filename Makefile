@@ -81,6 +81,10 @@ check: cflags += -O0 -ggdb -DDEBUG
 check: milagro zenroom
 	LUAVER=${luaver} make -C src check
 
+check-random:
+	if ! command -v rngtest; then echo "No rngtest found, install rng-tools"; fi
+	./test/random_rngtest_fips140-2.sh
+
 gdb:
 	LUAVER=${luaver} make -C src gdb
 

@@ -17,7 +17,7 @@
  * If not, see http://www.gnu.org/licenses/agpl.txt
  * 
  * Last modified by Denis Roio
- * on Wednesday, 22nd September 2021
+ * on Monday, 27th September 2021
  */
 
 #include <inttypes.h>
@@ -37,6 +37,7 @@
 // exported PRNG
 // easier name (csprng comes from amcl.h in milagro)
 static csprng rng;
+static int initialized = 0;
 
 csprng *PRNG(lua_State *L) {
   if(!initialized) {
