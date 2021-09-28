@@ -107,9 +107,9 @@ int rng_seed(lua_State *L) {
     RAND_seed(&rng, 256, random_seed);
   }
   initialized = 1;
-	// expose the random seed for optional determinism
-	push_buffer_to_octet(L, random_seed, seedlen);
-	lua_setglobal(L, "RNGSEED");
+  // TODO: expose the random seed for optional determinism
+  // push_buffer_to_octet(L, random_seed, seedlen); -- crashes here
+  // lua_setglobal(L, "RNGSEED");
   return(0);
 }
 
