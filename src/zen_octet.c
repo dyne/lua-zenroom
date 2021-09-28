@@ -71,6 +71,9 @@
 #include <prng.h>
 #include <encoding.h>
 #include <zen_octet.h>
+#include <zen_big.h>
+#include <zen_ecp.h>
+
 /* #include <zen_big.h> */
 
 /* #include <zen_ecp.h> */
@@ -84,8 +87,8 @@ extern int b58enc(char *b58, size_t *b58sz, const void *data, size_t binsz);
 // from zenroom types that are convertible to octet
 // they don't do any internal memory allocation
 // all arguments are allocated and freed by the caller
-// extern int _ecp_to_octet(octet *o, ecp *e);
-// extern int _ecp2_to_octet(octet *o, ecp2 *e);
+extern int _ecp_to_octet(octet *o, ecp *e);
+extern int _ecp2_to_octet(octet *o, ecp2 *e);
 
 static int _max(int x, int y) { if(x > y) return x;	else return y; }
 // static int _min(int x, int y) { if(x < y) return x;	else return y; }
@@ -226,29 +229,29 @@ octet* o_arg(lua_State *L,int n) {
 	}
 	// else
     // zenroom types
-	/* ud = luaL_testudata(L, n, "zenroom.big"); */
-	/* if(ud) { */
-	/* 	big *b = (big*)ud; */
-	/* 	o = new_octet_from_big(L,b); SAFE(o); */
-	/* 	lua_pop(L,1); */
-	/* 	return(o); */
-	/* } */
-	/* ud = luaL_testudata(L, n, "zenroom.ecp"); */
-	/* if(ud) { */
-	/* 	ecp *e = (ecp*)ud; */
-	/* 	o = o_new(L, e->totlen + 0x0f); SAFE(o); // new */
-	/* 	_ecp_to_octet(o,e); */
-	/* 	lua_pop(L,1); */
-	/* 	return(o); */
-	/* } */
-	/* ud = luaL_testudata(L, n, "zenroom.ecp2"); */
-	/* if(ud) { */
-	/* 	ecp2 *e = (ecp2*)ud; */
-	/* 	o = o_new(L, e->totlen + 0x0f); SAFE(o); // new */
-	/* 	_ecp2_to_octet(o,e); */
-	/* 	lua_pop(L,1); */
-	/* 	return(o); */
-	/* } */
+	ud = luaL_testudata(L, n, "zenroom.big");
+	if(ud) {
+		big *b = (big*)ud;
+		o = new_octet_from_big(L,b); SAFE(o);
+		lua_pop(L,1);
+		return(o);
+	}
+	ud = luaL_testudata(L, n, "zenroom.ecp");
+	if(ud) {
+		ecp *e = (ecp*)ud;
+		o = o_new(L, e->totlen + 0x0f); SAFE(o); // new
+		_ecp_to_octet(o,e);
+		lua_pop(L,1);
+		return(o);
+	}
+	ud = luaL_testudata(L, n, "zenroom.ecp2");
+	if(ud) {
+		ecp2 *e = (ecp2*)ud;
+		o = o_new(L, e->totlen + 0x0f); SAFE(o); // new
+		_ecp2_to_octet(o,e);
+		lua_pop(L,1);
+		return(o);
+	}
 	if( lua_isnil(L, n) || lua_isnone(L,n) ) {
 	  o = o_new(L, 0); SAFE(o);
 	  lua_pop(L,1);

@@ -48,6 +48,7 @@
 #include <lua.h>
 #include <lualib.h>
 #include <lauxlib.h>
+#include <compat-5.3.h>
 
 #include <zen_ecp_factory.h>
 

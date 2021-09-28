@@ -51,7 +51,7 @@ codegen:
 
 debug: milagro codegen
 	CC="${gcc}" AR="${ar}" \
-		LDFLAGS="${ldflags}" LDADD="${ldadd}" CFLAGS="-O0 -ggdb -DDEBUG=3" \
+		LDFLAGS="${ldflags}" LDADD="${ldadd}" CFLAGS="-O0 -ggdb -DDEBUG=3 -Wall" \
 		VERSION="${version}" \
 		make -C src
 
@@ -83,7 +83,7 @@ check: milagro zenroom
 
 check-random:
 	if ! command -v rngtest; then echo "No rngtest found, install rng-tools"; fi
-	./test/random_rngtest_fips140-2.sh
+	lua5.1 test/nist/check_rsp.lua
 
 gdb:
 	LUAVER=${luaver} make -C src gdb

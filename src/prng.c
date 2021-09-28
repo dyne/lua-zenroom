@@ -17,7 +17,7 @@
  * If not, see http://www.gnu.org/licenses/agpl.txt
  * 
  * Last modified by Denis Roio
- * on Monday, 27th September 2021
+ * on Tuesday, 28th September 2021
  */
 
 #include <inttypes.h>
@@ -89,7 +89,7 @@ int rng_int64(lua_State *L) {
 
 int rng_seed(lua_State *L) {
   const char *s = lua_tostring(L, 1);
-  uint8_t random_seed[256];
+  char random_seed[256];
   int seedlen;
   if(s) {
     act(L,"Init RNG from input hex string (%u chars)", strlen(s)); // luaL_argcheck(L, s != NULL, 1, "string expected");

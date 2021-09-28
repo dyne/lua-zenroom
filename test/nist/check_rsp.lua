@@ -6,23 +6,7 @@
 -- the kind of hash must be indicated in KEYS
 -- public domain (and thanks for all the NIST)
 
-O = require'octet'
-HASH = require'hash'
-STR = require'vfastr'
-trim = STR.trim
-
--- TODO: optimize in C using strtok
-local function split(src,pat)
-   local tbl = {}
-   src:gsub(pat, function(x) tbl[#tbl+1]=x end)
-   return tbl
-end
-function strtok(src, pat)
-   if not src then return { } end
-   pat = pat or "%S+"
-   assert(type(src) == "string", "strtok error: argument is not a string")
-   return split(src, pat)
-end
+require'zenroom'
 
 function readfile(file)
     local f = assert(io.open(file, "rb"))
@@ -67,7 +51,7 @@ local function runtest(hashtype, data)
    print('NIST test OK')
 end
 
-NP = "../test/nist/"
+NP = "./test/nist/"
 runtest("sha256", NP.."SHA256ShortMsg.rsp")
 collectgarbage 'collect'
 runtest("sha256", NP.."SHA256LongMsg.rsp")

@@ -284,7 +284,6 @@ static int ecdh_dsa_sign_hashed(lua_State *L) {
 	// provide. For a correct K's generation see also RFC6979, however
 	// this argument is provided here mostly for testing purposes with
 	// pre-calculated vectors.
-	int max_size;
 	lua_Number n = lua_tointeger(L,3);
 	if(n==0) {
 		ERROR(); lerror(L,"3rd arg error: zero value");
@@ -369,7 +368,6 @@ static int ecdh_dsa_verify_hashed(lua_State *L) {
 	} else {
 		ERROR(); lerror(L,"signature argument invalid: not a table");
 	}
-	int max_size = 0;
 	lua_Number n = lua_tointeger(L,4);
 	if(n==0) {
 		ERROR(); lerror(L,"invalid size zero for material to sign");
