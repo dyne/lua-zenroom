@@ -18,7 +18,7 @@
 */
 
 /**
- * @file test_aes_decrypto.c
+ * @file test_amcl_(aes_decrypt)o.c
  * @author Kealan McCusker
  * @brief Test function for AES decryption,
  *
@@ -26,7 +26,7 @@
 
 /* Build executible after installation:
 
-  gcc -std=c99 -g ./test_aes_decrypt.c -I/opt/amcl/include -L/opt/amcl/lib -lamcl -o test_aes_decrypt
+  gcc -std=c99 -g ./test_amcl_(aes_decrypt).c -I/opt/amcl/include -L/opt/amcl/lib -lamcl -o test_amcl_(aes_decrypt)
 
 */
 
@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 {
     if (argc != 3)
     {
-        printf("usage: ./test_aes_decrypt [path to test vector file] [mode-ECB||CBC||CTR||CBF1]\n");
+        printf("usage: ./test_amcl_(aes_decrypt) [path to test vector file] [mode-ECB||CBC||CTR||CBF1]\n");
         exit(EXIT_FAILURE);
     }
 
@@ -213,7 +213,7 @@ int main(int argc, char** argv)
             AES_init(&a,mode,KEYLen,KEY,IV);
             for (i=0; i<(CIPHERTEXTLen/blockSize); i++)
             {
-                AES_decrypt(&a,&CIPHERTEXT[i*blockSize]);
+                AMCL_(AES_decrypt)(&a,&CIPHERTEXT[i*blockSize]);
             }
 
             octet PLAINTEXTOct= {CIPHERTEXTLen,CIPHERTEXTLen,CIPHERTEXT};
