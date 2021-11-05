@@ -17,7 +17,7 @@
     under the License.
 */
 /**
- * @file test_amcl_(aes_encrypt).c
+ * @file test_aes_encrypt.c
  * @author Kealan McCusker
  * @brief Test function for AES encryption,
  *
@@ -25,7 +25,7 @@
 
 /* Build executible after installation:
 
-  gcc -std=c99 -g ./test_amcl_(aes_encrypt).c -I/opt/amcl/include -L/opt/amcl/lib -lamcl -o test_amcl_(aes_encrypt)
+  gcc -std=c99 -g ./test_aes_encrypt.c -I/opt/amcl/include -L/opt/amcl/lib -lamcl -o test_aes_encrypt
 
 */
 
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
 {
     if (argc != 3)
     {
-        printf("usage: ./test_amcl_(aes_encrypt) [path to test vector file] [mode:ECB||CBC||CTR||CFB1]\n");
+        printf("usage: ./test_aes_encrypt [path to test vector file] [mode:ECB||CBC||CTR||CFB1]\n");
         exit(EXIT_FAILURE);
     }
 

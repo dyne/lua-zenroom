@@ -18,7 +18,7 @@
 */
 
 /**
- * @file test_amcl_(aes_decrypt)o.c
+ * @file test_aes_decrypt.c
  * @author Kealan McCusker
  * @brief Test function for AES decryption,
  *
@@ -26,7 +26,7 @@
 
 /* Build executible after installation:
 
-  gcc -std=c99 -g ./test_amcl_(aes_decrypt).c -I/opt/amcl/include -L/opt/amcl/lib -lamcl -o test_amcl_(aes_decrypt)
+  gcc -std=c99 -g ./test_aes_decrypt.c -I/opt/amcl/include -L/opt/amcl/lib -lamcl -o test_aes_decrypt
 
 */
 
@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 {
     if (argc != 3)
     {
-        printf("usage: ./test_amcl_(aes_decrypt) [path to test vector file] [mode-ECB||CBC||CTR||CBF1]\n");
+        printf("usage: ./test_aes_decrypt [path to test vector file] [mode-ECB||CBC||CTR||CBF1]\n");
         exit(EXIT_FAILURE);
     }
 
