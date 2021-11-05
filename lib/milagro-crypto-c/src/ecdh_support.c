@@ -262,7 +262,7 @@ void AES_CBC_IV0_ENCRYPT(octet *k,octet *m,octet *c)
             }
         }
         if (fin) break;
-        AES_encrypt(&a,buff);
+        AMCL_(AES_encrypt)(&a,buff);
         for (i=0; i<16; i++)
             if (opt<c->max) c->val[opt++]=buff[i];
     }
@@ -271,7 +271,7 @@ void AES_CBC_IV0_ENCRYPT(octet *k,octet *m,octet *c)
 
     padlen=16-i;
     for (j=i; j<16; j++) buff[j]=padlen;
-    AES_encrypt(&a,buff);
+    AMCL_(AES_encrypt)(&a,buff);
     for (i=0; i<16; i++)
         if (opt<c->max) c->val[opt++]=buff[i];
     AES_end(&a);
@@ -308,7 +308,7 @@ int AES_CBC_IV0_DECRYPT(octet *k,octet *c,octet *m)
             }
             else ch=c->val[ipt++];
         }
-        AES_decrypt(&a,buff);
+        AMCL_(AES_decrypt)(&a,buff);
         if (fin) break;
         for (i=0; i<16; i++)
             if (opt<m->max) m->val[opt++]=buff[i];
