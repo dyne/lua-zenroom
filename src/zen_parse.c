@@ -127,12 +127,20 @@ static int lua_raw_print(lua_State* L) {
 	return 0;
 }
 
+static int lua_printerr(lua_State *L) {
+    size_t size;
+	const char *msg = luaL_checklstring(L,1,&size);
+	write(2, msg, size);
+	write(2, "\n", 1);
+	return 0;
+}
 const struct luaL_Reg vfastr_class[] = {
   {"parse_prefix", lua_parse_prefix},
   {"strcasecmp", lua_strcasecmp},
   {"trim", lua_trim_spaces},
   {"trimq", lua_trim_quotes},
   {"raw_print", lua_raw_print},
+  {"printerr", lua_printerr},
   {NULL, NULL}
 };
 

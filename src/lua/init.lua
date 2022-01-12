@@ -17,10 +17,12 @@
 --If not, see http://www.gnu.org/licenses/agpl.txt
 --
 --Last modified by Denis Roio
---on Monday, 27th September 2021
+--on Tuesday, 28th September 2021
 --]]
 
 require'libzenroom'
+-- TODO: set version from C
+ZENROOM_VERSION = '2.0.0-lua'
 
 RNG = require'rng'
 RNG.seed() -- init with system random
@@ -43,6 +45,8 @@ trim = STR.trim
 trimq = STR.trimq
 strcasecmp = STR.strcasecmp
 parse_prefix = STR.parse_prefix
+printerr = STR.printerr
+
 _G['split'] = function(src,pat)
    local tbl = {}
    src:gsub(pat, function(x) tbl[#tbl+1]=x end)
@@ -65,6 +69,7 @@ _G['type'] = function(var)
 end
 -- TODO: optimise in C
 function iszen(n)
+   if not n then return false end
    for _ in n:gmatch("zenroom") do
 	  return true
    end
