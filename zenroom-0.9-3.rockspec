@@ -1,5 +1,5 @@
 package = "zenroom"
-version = "0.9-1"
+version = "0.9-3"
 source = {
    url = "git://github.com/dyne/lua-zenroom.git",
 }
@@ -28,11 +28,11 @@ build = {
       LUA="$(LUA)",
    },
    install_variables = {
-      INST_PREFIX="$(PREFIX)",
-      INST_BINDIR="$(BINDIR)",
-      INST_LIBDIR="$(LIBDIR)",
-      INST_LUADIR="$(LUADIR)",
-      INST_CONFDIR="$(CONFDIR)",
+      PREFIX="/usr",
+      BINDIR="$(BINDIR)",
+      LIBDIR="$(LIBDIR)",
+      LUADIR="$(LUADIR)",
+      CONFDIR="$(CONFDIR)",
    },
    install = {
       lua = {
