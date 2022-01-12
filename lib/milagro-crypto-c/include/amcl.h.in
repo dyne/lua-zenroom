@@ -63,6 +63,10 @@
 #define AMCL_FP_SPARSE 3
 #define AMCL_FP_DENSE 4
 
+#include <inttypes.h>
+#define unsign32 uint32_t
+#define __int64  int64_t
+#define __int32  int32_t
 
 /**
  * @brief SHA256 hash function instance */
