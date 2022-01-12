@@ -1,5 +1,5 @@
 package = "zenroom"
-version = "scm-1"
+version = "0.9-1"
 source = {
    url = "git://github.com/dyne/lua-zenroom.git",
 }
