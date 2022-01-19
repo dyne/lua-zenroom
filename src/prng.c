@@ -95,7 +95,7 @@ int rng_seed(lua_State *L) {
     act(L,"Init RNG from input hex string (%u chars)", strlen(s)); // luaL_argcheck(L, s != NULL, 1, "string expected");
     seedlen = hex2buf(random_seed, s);
     func(L,"HEX string converted to %u bytes",seedlen);
-    RAND_seed(&rng, seedlen, random_seed);
+    AMCL_RAND_seed(&rng, seedlen, random_seed);
   } else {
     act(L,"Init RNG from system random");
     randombytes(random_seed, 252); // last 4 bytes from time
@@ -104,7 +104,7 @@ int rng_seed(lua_State *L) {
     random_seed[253] = (ttmp >> 16) & 0xff;
     random_seed[254] = (ttmp >>  8) & 0xff;
     random_seed[255] =  ttmp & 0xff;
-    RAND_seed(&rng, 256, random_seed);
+    AMCL_RAND_seed(&rng, 256, random_seed);
   }
   initialized = 1;
   // TODO: expose the random seed for optional determinism
