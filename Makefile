@@ -19,14 +19,22 @@
 version=0.1.0
 pwd := $(shell pwd)
 ARCH=$(shell uname -m)
-system := Linux
 gcc := gcc
 luaver := 5.1
-ldflags := -fPIC -shared
+system := $(shell uname -s)
+ldflags := 
+ldflags_macos := -dynamiclib -undefined dynamic_lookup
+ldflags_linux := -fPIC -shared
 ar := $(shell which ar) # cmake requires full path
 ranlib := ranlib
 ld := ld
 platform := posix
+
+ifeq ($(system),Darwin) 
+    ldflags+=$(ldflags_macos)
+else
+    ldflags+=$(ldflags_linux)
+endif
 
 # ----------------
 # milagro settings
