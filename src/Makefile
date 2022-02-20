@@ -28,7 +28,11 @@ SOURCES := zenroom.o \
 
 amcl := ../lib/milagro-crypto-c
 
+ifeq ($(shell uname),Darwin) 
+all: CFLAGS += $(shell pkg-config --cflags --libs lua-5.1) -I${amcl}/build/include -I${amcl}/include
+else
 all: CFLAGS += -fPIC -I/usr/include/lua5.1 -I${amcl}/build/include -I${amcl}/include
+endif
 all: ${SOURCES}
 	${CC} ${CFLAGS} ${SOURCES} -o libzenroom.so ${LDFLAGS} ${LDADD}
 
